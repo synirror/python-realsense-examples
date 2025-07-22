@@ -1,0 +1,7 @@
+numpy
+pyrealsense2
+opencv-python
+ultralytics
+supervision
+lap # ultralytics tracker require
+sahi
