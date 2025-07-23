@@ -4,7 +4,6 @@ from typing import List
 
 import cv2
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 import supervision as sv
 import torch
@@ -25,7 +24,7 @@ if torch.cuda.is_available() and torch.cuda.device_count() > 0:
 
 
 def get_median_depth(
-    depth_frame: npt.NDArray[np.uint16], x1: int, y1: int, x2: int, y2: int, samples=30
+    depth_frame: np.ndarray, x1: int, y1: int, x2: int, y2: int, samples=30
 ) -> float:
     """
     這個函數用來從邊界框中獲取指定區域的深度距離，並計算中間值
@@ -77,8 +76,8 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
-        annotated_image: npt.NDArray[np.uint16] = color_image.copy()
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
+        annotated_image: np.ndarray = color_image.copy()
 
         results: List[Results] = model(color_image, verbose=False, conf=0.25)
         result: Results = results[0]
@@ -89,7 +88,7 @@ try:
         # 獲取深度資訊並添加到 detections 物件中
         depth_values: List[str] = []
         for bbox in detections.xyxy:
-            bbox: npt.NDArray[np.int32] = bbox.astype(int)
+            bbox: np.ndarray = bbox.astype(int)
             x1, y1, x2, y2 = [int(i) for i in bbox]
             depth: float = get_median_depth(depth_frame, x1, y1, x2, y2, samples=30)
             depth_values.append(f"{depth:.2f}m")

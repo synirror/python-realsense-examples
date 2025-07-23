@@ -4,7 +4,6 @@ from typing import List
 
 import cv2
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 import supervision as sv
 import torch
@@ -46,9 +45,9 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
         # 用於標註的影像
-        annotated_image: npt.NDArray[np.uint16] = color_image.copy()
+        annotated_image: np.ndarray = color_image.copy()
 
         # 使用 YOLOv8 模型進行物件追蹤
         # tracker="botsort.yaml" 代表使用 YOLOv8 內建的 BotSort 追蹤器

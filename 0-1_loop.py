@@ -2,7 +2,6 @@ import sys
 import traceback
 
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 
 # region 檢查設備是否支援運行這支程式（這裡面程式是不需要的，可略過不看）
@@ -28,8 +27,8 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        depth_image: npt.NDArray[np.uint16] = np.asanyarray(depth_frame.get_data())
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
+        depth_image: "np.ndarray" = np.asanyarray(depth_frame.get_data())
+        color_image: "np.ndarray" = np.asanyarray(color_frame.get_data())
 
         height, width = depth_image.shape
         msg = ""

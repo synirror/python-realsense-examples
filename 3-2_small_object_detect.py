@@ -4,7 +4,6 @@ from typing import Generator
 
 import cv2
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 import torch
 from sahi import AutoDetectionModel
@@ -33,7 +32,7 @@ try:
     )
 
     rng: Generator = np.random.default_rng(1)
-    colors: npt.NDArray[np.int32] = rng.integers(
+    colors: np.ndarray = rng.integers(
         0, 255, size=(len(detection_model.category_mapping), 3), dtype=np.int32
     )
 
@@ -52,9 +51,9 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
         # 用於標註的影像
-        annotated_image: npt.NDArray[np.uint16] = color_image.copy()
+        annotated_image: np.ndarray = color_image.copy()
 
         # 使用 SAHI 來進行物件偵測，這裡會將影像切割成小塊進行處理
         # 這裡的切割大小是 320x320，重疊比例是 20%，可以根據需要調整

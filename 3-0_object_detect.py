@@ -7,7 +7,6 @@ from typing import Generator, List
 
 import cv2
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 import torch
 from ultralytics import YOLO
@@ -27,7 +26,7 @@ if torch.cuda.is_available() and torch.cuda.device_count() > 0:
 
 
 def get_median_depth(
-    depth_frame: npt.NDArray[np.uint16], x1: int, y1: int, x2: int, y2: int, samples=30
+    depth_frame: np.ndarray, x1: int, y1: int, x2: int, y2: int, samples=30
 ) -> float:
     """
     這個函數用來從邊界框中獲取指定區域的深度距離，並計算中間值
@@ -65,7 +64,7 @@ try:
 
     # 產生對應類別數量的隨機顏色
     rng: Generator = np.random.default_rng(1)
-    colors: npt.NDArray[np.int32] = rng.integers(
+    colors: np.ndarray = rng.integers(
         0, 255, size=(len(model.names), 3), dtype=np.int32
     )
 
@@ -84,9 +83,9 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
         # 用於標註的影像
-        annotated_image: npt.NDArray[np.uint16] = color_image.copy()
+        annotated_image: np.ndarray = color_image.copy()
 
         # 使用 YOLO 模型進行物件偵測
         # verbose=False 代表關閉預設會在終端機輸出的推理資訊，conf=0.25 代表置信度閾值，低於這個值的預測結果將被忽略
@@ -94,13 +93,13 @@ try:
         result: Results = results[0]
 
         # result.boxes 是一個物件，包含了所有預測的邊界框、類別和置信度
-        classes: npt.NDArray[np.float32] = result.boxes.cls.cpu().numpy()
-        confidences: npt.NDArray[np.float32] = result.boxes.conf.cpu().numpy()
+        classes: np.ndarray = result.boxes.cls.cpu().numpy()
+        confidences: np.ndarray = result.boxes.conf.cpu().numpy()
         # 邊界框格式可選擇 xywh、xywhn、xyxy、xyxyn
         # xyxy 是左上角座標及右下角座標 [x1, y1, x2, y2]
         # xywh 是左上角座標及邊界框的長寬 [x, y, w, h]
         # 多一個 n 的話，代表是歸一化的座標，表示邊界框的座標是相對於影像大小的比例。範圍在 0 到 1 之間
-        boxes: npt.NDArray[np.float32] = result.boxes.xyxy.cpu().numpy()
+        boxes: np.ndarray = result.boxes.xyxy.cpu().numpy()
 
         for prediction in zip(classes, confidences, boxes):
             # 類別 ID
@@ -109,7 +108,7 @@ try:
             score: float = prediction[1].astype(float)
             # 邊界框，格式為 [x1, y1, x2, y2]，x1, y1 是左上角座標（最小值），x2, y2 是右下角座標（最大值）
             # 座標會有小數點，需使用 astype(int) 方法轉換為整數，避免 OpenCV 報錯
-            bbox: npt.NDArray[np.int32] = prediction[2].astype(int)
+            bbox: np.ndarray = prediction[2].astype(int)
             # 類別名稱，這是從模型的類別名稱列表中獲取的
             label: str = model.names[class_id]
             # 根據類別 ID 獲取隨機出來的固定顏色

@@ -5,7 +5,6 @@ import traceback
 
 import cv2
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 
 # region 檢查設備是否支援運行這支程式（這裡面程式是不需要的，可略過不看）
@@ -32,8 +31,8 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        depth_image: npt.NDArray[np.uint16] = np.asanyarray(depth_frame.get_data())
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
+        depth_image: np.ndarray = np.asanyarray(depth_frame.get_data())
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
         # 如果想要展示深度圖給別人看，直接 imshow depth_image 的話會是呈現黑白的
         # 所以需要使用 OpenCV 的 applyColorMap 函數來映射顏色
         depth_colormap = cv2.applyColorMap(
@@ -43,7 +42,7 @@ try:
         # 使用 OpenCV 來顯示深度攝影機的畫面
 
         # 將色彩影像調整到與深度影像相同的大小，避免合併時出現錯誤
-        resized_color_image: npt.NDArray[np.uint16] = cv2.resize(
+        resized_color_image: np.ndarray = cv2.resize(
             color_image,
             dsize=(depth_colormap.shape[1], depth_colormap.shape[0]),
             interpolation=cv2.INTER_AREA,

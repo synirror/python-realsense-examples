@@ -5,7 +5,6 @@ from typing import List, Optional
 
 import cv2
 import numpy as np
-import numpy.typing as npt
 import pyrealsense2 as rs
 import torch
 from ultralytics import YOLO
@@ -45,9 +44,9 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        color_image: npt.NDArray[np.uint16] = np.asanyarray(color_frame.get_data())
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
         # 用於標註的影像
-        annotated_image: npt.NDArray[np.uint16] = color_image.copy()
+        annotated_image: np.ndarray = color_image.copy()
 
         # 使用 YOLOv8 模型進行物件追蹤
         # tracker="botsort.yaml" 代表使用 YOLOv8 內建的 BotSort 追蹤器
@@ -61,16 +60,16 @@ try:
             tracker="botsort.yaml",
         )
         result: Results = results[0]
-        boxes: npt.NDArray[np.float32] = result.boxes.xyxy.cpu().numpy()
+        boxes: np.ndarray = result.boxes.xyxy.cpu().numpy()
         # 如果沒有追蹤到物件，則 track_ids 會是空的；如果有追蹤到物件，則 track_ids 會是一個包含所有追蹤 ID 的列表
-        track_ids: npt.NDArray[np.int32] = (
+        track_ids: np.ndarray = (
             result.boxes.id.cpu().numpy().astype(int)
             if result.boxes.id is not None
             else np.empty(0)
         )
 
         for bbox, track_id in zip(boxes, track_ids):
-            bbox: npt.NDArray[np.int32] = bbox.astype(int)
+            bbox: np.ndarray = bbox.astype(int)
             track_id: Optional[int]
 
             x1, y1, x2, y2 = [int(i) for i in bbox]
