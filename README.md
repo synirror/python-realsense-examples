@@ -52,11 +52,12 @@ pip install -r requirements.txt
 - `2-1_calculate_camera_angle.py`: 透過 IMU 數據計算相機角度的範例
 
 ### 3. YOLOv8 物件偵測與追蹤
-- `3-0_object_detect_sv.py`: YOLOv8 物件偵測基礎範例（使用 Supervision 標註工具）
-- `3-0_object_detect.py`: YOLOv8 物件偵測基礎範例（不依賴額外套件的標註方式）
-- `3-1_object_track_sv.py`: YOLOv8 物件追蹤範例（使用 Supervision 標註工具）
-- `3-1_object_track.py`: YOLOv8 物件追蹤範例（不依賴額外套件的標註方式）
-- `3-2_small_object_detect.py`: SAHI 小型物件偵測範例
+- `3-0_object_detect.py`: YOLOv8 物件偵測基礎範例
+- `3-1_yolo_opencv_sv.py`: YOLOv8 與 OpenCV 結合的物件偵測範例（使用 Supervision 標註工具）
+- `3-1_yolo_opencv.py`: YOLOv8 與 OpenCV 結合的物件偵測範例（不依賴額外套件的標註方式）
+- `3-2_object_track_sv.py`: YOLOv8 物件追蹤範例（使用 Supervision 標註工具）
+- `3-2_object_track.py`: YOLOv8 物件追蹤範例（不依賴額外套件的標註方式）
+- `3-3_small_object_detect.py`: SAHI 小型物件偵測範例
 
 專案中的 `models/` 目錄包含了 YOLOv8 所需的模型檔案，程式碼會在執行時自動下載所需的模型：
 

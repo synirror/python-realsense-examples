@@ -66,8 +66,8 @@ try:
         gyro: rs.motion_frame = frames[1].as_motion_frame().get_motion_data()
 
         # 取得到的資料會是三維向量 Vector3（x、y、z）
-        print(f"{accel=}")
-        print(f"{gyro=}")
+        print(f"加速度計數據: {accel}")
+        print(f"陀螺儀數據: {gyro}")
         print()
 except Exception as e:
     traceback.print_exc()

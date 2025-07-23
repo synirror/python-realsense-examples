@@ -18,8 +18,8 @@ if len(context.query_devices()) == 0:
 
 print(f"PyTorch 是否可用 cuda：{torch.cuda.is_available()}")
 if torch.cuda.is_available() and torch.cuda.device_count() > 0:
-    print(f"{torch.cuda.device_count()=}")
-    print(f"{torch.cuda.get_device_name(0)=}")
+    print(f"Device Count: {torch.cuda.device_count()}")
+    print(f"Main GPU: {torch.cuda.get_device_name(0)}")
 # endregion 檢查設備是否支援運行這支程式（這裡面程式是不需要的，可略過不看）
 
 
