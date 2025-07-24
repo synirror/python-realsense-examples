@@ -28,7 +28,8 @@ try:
         model_type="yolov8",
         model_path="models/yolov8n.pt",
         confidence_threshold=0.25,
-        # device="cpu",  # 如果有 GPU 可以改成 "cuda" 或 "cuda:0"
+        # 這裡的 device 會自動選擇可用的 GPU，如果沒有可用的 GPU，則使用 CPU
+        device=("cuda:0" if torch.cuda.is_available() else "cpu"),
     )
 
     rng: Generator = np.random.default_rng(1)
