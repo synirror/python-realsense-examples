@@ -1,6 +1,6 @@
 import sys
 import traceback
-from typing import Generator
+from typing import Generator, List
 
 import cv2
 import numpy as np
@@ -72,10 +72,10 @@ try:
         for pred in result.object_prediction_list:
             class_id: int = pred.category.id  # 類別 ID
             score: float = pred.score.value  # 置信度
-            bbox: list[int] = list(map(int, pred.bbox.to_xyxy()))  # 邊界框
+            bbox: List[int] = list(map(int, pred.bbox.to_xyxy()))  # 邊界框
             label: str = pred.category.name  # 類別名稱
             # 隨機顏色
-            color: list[int] = colors[class_id].astype(int).tolist()
+            color: List[int] = colors[class_id].astype(int).tolist()
 
             x1, y1, x2, y2 = bbox
             annotated_image = cv2.rectangle(

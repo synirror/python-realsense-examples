@@ -112,7 +112,7 @@ try:
             # 類別名稱，這是從模型的類別名稱列表中獲取的
             label: str = model.names[class_id]
             # 根據類別 ID 獲取隨機出來的固定顏色
-            color: list[int] = colors[class_id].astype(int).tolist()
+            color: List[int] = colors[class_id].astype(int).tolist()
 
             # 將邊界框座標轉換為整數（OpenCV 的座標必須是整數）
             x1, y1, x2, y2 = [int(i) for i in bbox]
