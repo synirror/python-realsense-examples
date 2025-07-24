@@ -1,6 +1,6 @@
-!.gitkeep
 /resources/*.mp4
 /models/*
+!.gitkeep
 
 *.pyc
 .vscode/
