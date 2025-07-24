@@ -13,7 +13,7 @@ if len(context.query_devices()) == 0:
 
 
 try:
-    rs_config: rs.config = rs.config()
+    rs_config = rs.config()
     """
     ===== enable_stream 方法說明 =====
     第1個參數：要啟用的深度攝影機功能，可以代入 rs.stream.depth、rs.stream.color、rs.stream.accel、rs.stream.gyro、rs.stream.pose
@@ -33,7 +33,7 @@ try:
     rs_config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
     # 啟動深度攝影機
-    pipeline: rs.pipeline = rs.pipeline()
+    pipeline = rs.pipeline()
     pipeline.start(rs_config)
     while 1:
         # 等待新的幀數據到來
@@ -42,7 +42,7 @@ try:
         frames: rs.composite_frame = pipeline.wait_for_frames()
 
         depth_frame: rs.depth_frame = frames.get_depth_frame()
-        color_frame: rs.frame = frames.get_color_frame()
+        color_frame: rs.color_frame = frames.get_color_frame()
 
         # 剛開始啟動時，有些情況下會無法從幀裡面提取部分數據，因此這個判斷是必須要有的
         if not depth_frame or not color_frame:

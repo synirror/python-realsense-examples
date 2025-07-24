@@ -68,11 +68,11 @@ try:
         0, 255, size=(len(model.names), 3), dtype=np.int32
     )
 
-    rs_config: rs.config = rs.config()
+    rs_config = rs.config()
     rs_config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     rs_config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
-    pipeline: rs.pipeline = rs.pipeline()
+    pipeline = rs.pipeline()
     pipeline.start(rs_config)
 
     while 1:

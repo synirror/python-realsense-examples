@@ -55,11 +55,11 @@ try:
     # 初始化 YOLOv8 模型
     model: YOLO = YOLO("models/yolov8n.pt")
 
-    rs_config: rs.config = rs.config()
+    rs_config = rs.config()
     rs_config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     rs_config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
-    pipeline: rs.pipeline = rs.pipeline()
+    pipeline = rs.pipeline()
     pipeline.start(rs_config)
 
     # 初始化 Supervision 的繪圖工具

@@ -45,8 +45,8 @@ if not has_accel and not has_gyro:
 # endregion 檢查設備是否支援運行這支程式（這裡面程式是不需要的，可略過不看）
 
 try:
-    pipeline: rs.pipeline = rs.pipeline()
-    rs_config: rs.config = rs.config()
+    pipeline = rs.pipeline()
+    rs_config = rs.config()
     # 啟用加速度計
     rs_config.enable_stream(rs.stream.accel)
     # 啟用陀螺儀

@@ -12,11 +12,11 @@ if len(context.query_devices()) == 0:
 # endregion 檢查設備是否支援運行這支程式（這裡面程式是不需要的，可略過不看）
 
 try:
-    rs_config: rs.config = rs.config()
+    rs_config = rs.config()
     rs_config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     rs_config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
-    pipeline: rs.pipeline = rs.pipeline()
+    pipeline = rs.pipeline()
     pipeline.start(rs_config)
     while 1:
         frames: rs.composite_frame = pipeline.wait_for_frames()
@@ -27,8 +27,8 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        depth_image: "np.ndarray" = np.asanyarray(depth_frame.get_data())
-        color_image: "np.ndarray" = np.asanyarray(color_frame.get_data())
+        depth_image: np.ndarray = np.asanyarray(depth_frame.get_data())
+        color_image: np.ndarray = np.asanyarray(color_frame.get_data())
 
         height, width = depth_image.shape
         msg = ""

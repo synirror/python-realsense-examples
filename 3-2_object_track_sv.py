@@ -27,11 +27,11 @@ try:
     # 名稱後面有個n代表這是 Nano 模型，也是 YOLOv8 裡面最輕量、運行速度最快的模型（運行時，如果指定的路徑找不到該模型檔案，會自動從網路下載）
     model: YOLO = YOLO("models/yolov8n.pt")
 
-    rs_config: rs.config = rs.config()
+    rs_config = rs.config()
     rs_config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     rs_config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
-    pipeline: rs.pipeline = rs.pipeline()
+    pipeline = rs.pipeline()
     pipeline.start(rs_config)
 
     box_annotator: sv.BoxAnnotator = sv.BoxAnnotator()
